@@ -125,7 +125,7 @@ const columns: ProColumns<API.CurrentUser>[] = [
       >
         编辑
       </a>,
-      <a href={record.url} target="_blank" rel="noopener noreferrer" key="view">
+      <a href={record.avatarUrl} target="_blank" rel="noopener noreferrer" key="view">
         查看
       </a>,
       <TableDropdown
@@ -175,7 +175,7 @@ export default () => {
       }}
       options={{
         setting: {
-          listsHeight: 400,
+          // listsHeight: 400,
         },
       }}
       form={{
