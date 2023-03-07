@@ -14,7 +14,6 @@ declare namespace API {
     createTime: Date;
     userRole: number;
 
-
     // name?: string;
     // avatar?: string;
     // userid?: string;
@@ -61,6 +60,16 @@ declare namespace API {
     updatedAt?: string;
     createdAt?: string;
     progress?: number;
+  };
+
+  /**
+   * 用于对接后端的通用返回类
+   */
+  type BaseResponse<T> = {
+    code: number;
+    data: T;
+    message: string;
+    description: string;
   };
 
   type RuleList = {

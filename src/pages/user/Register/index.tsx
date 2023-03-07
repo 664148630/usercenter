@@ -1,17 +1,10 @@
 import Footer from '@/components/Footer';
-import {register} from '@/services/ant-design-pro/api';
-import {
-  LockOutlined,
-  UserOutlined,
-
-} from '@ant-design/icons';
-import {
-  LoginForm,
-  ProFormText,
-} from '@ant-design/pro-components';
-import {message, Tabs } from 'antd';
+import { register } from '@/services/ant-design-pro/api';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { FormattedMessage, history, SelectLang, useIntl} from 'umi';
+import { FormattedMessage, history, SelectLang, useIntl } from 'umi';
 import styles from './index.less';
 
 const Register: React.FC = () => {
@@ -20,16 +13,16 @@ const Register: React.FC = () => {
 
   //表单提交
   const handleSubmit = async (values: API.RegisterParams) => {
-    const {userPassword, checkPassword} = values;
+    const { userPassword, checkPassword } = values;
     //校验
-    if(userPassword !== checkPassword) {
+    if (userPassword !== checkPassword) {
       message.error('两次输入的密码不一致');
       return;
     }
     try {
       // 注册
       const id = await register(values);
-      if (id > 0) {
+      if (id) {
         const defaultLoginSuccessMessage = intl.formatMessage({
           id: 'pages.register.success',
           defaultMessage: '注册成功！',
@@ -44,9 +37,10 @@ const Register: React.FC = () => {
           query,
         });
         return;
-      }else {
-        throw new Error('register error id = ${id}');
       }
+      // else {
+      //   throw new Error('register error id = ${id}'); //用了全局拦截器来抛出跟后端返回的错误信息一致就不用这里抛出了
+      // }
     } catch (error) {
       const defaultLoginFailureMessage = intl.formatMessage({
         id: 'pages.login.failure',
@@ -65,10 +59,9 @@ const Register: React.FC = () => {
         <LoginForm
           submitter={{
             searchConfig: {
-              submitText: '注册'
-            }
+              submitText: '注册',
+            },
           }}
-
           logo={<img alt="logo" src="/logo.svg" />}
           title="Ant Design"
           subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
@@ -114,7 +107,6 @@ const Register: React.FC = () => {
                 ]}
               />
 
-
               <ProFormText.Password
                 name="userPassword"
                 fieldProps={{
@@ -142,7 +134,7 @@ const Register: React.FC = () => {
                       <FormattedMessage
                         id="pages.login.userPassword.required"
                         defaultMessage="长度不能小于8"
-                        />
+                      />
                     ),
                   },
                 ]}
@@ -180,10 +172,8 @@ const Register: React.FC = () => {
                   },
                 ]}
               />
-
             </>
           )}
-
         </LoginForm>
       </div>
       <Footer />
